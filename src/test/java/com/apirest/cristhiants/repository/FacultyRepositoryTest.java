@@ -71,7 +71,7 @@ class FacultyRepositoryTest {
         // assert that the faculty's id is not null
         assertThat(engineering.getId()).isNotNull();
     }
-
+      
     @Test
     @Transactional
     @Rollback(false)
