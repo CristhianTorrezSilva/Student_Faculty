@@ -1,4 +1,4 @@
-package com.apirest.cristhiants;
+package com.apirest.cristhiants.entity;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -9,21 +9,32 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Data
-@AllArgsConstructor
-@NoArgsConstructor
 @Entity
+@NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "students")
 public class Student {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Long id;
+
     private String name;
 
-    // Relación Many-to-Many con Materia
     @ManyToMany
     @JoinTable(
             name = "student_subject",
             joinColumns = @JoinColumn(name = "student_id"),
             inverseJoinColumns = @JoinColumn(name = "subject_id"))
     private Set<Subject> subjects = new HashSet<>();
+
+    public void addSubject(Subject subject) {
+        this.subjects.add(subject);
+        subject.getStudents().add(this);
+    }
+
+    public void removeSubject(Subject subject) {
+        this.subjects.remove(subject);
+        subject.getStudents().remove(this);
+    }
 }
