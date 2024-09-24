@@ -45,4 +45,36 @@ class StudentRepositoryTest {
             System.out.println("\tSubject: " + subject.getName());
         }
     }
+    
+    @Test
+    @Transactional
+    @Rollback(false)
+    void getAllStudentsWithSubjects() {
+        Iterable<Student> students = studentRepository.findAll();
+        for (Student student : students) {
+            System.out.println("Student: " + student.getName());
+            Set<Subject> subjects = student.getSubjects();
+            for (Subject subject : subjects) {
+                System.out.println("\tSubject: " + subject.getName());
+            }
+        }
+    }
+    
+    @Test
+    @Transactional
+    @Rollback(false)
+    void updateStudent() {
+        Optional<Student> studentOptional = studentRepository.findById(1L);
+        assertThat(studentOptional).isPresent();
+        Student student = studentOptional.get();
+        student.setName("Cris");
+        studentRepository.save(student);
+    }
+    
+    @Test
+    @Transactional
+    @Rollback(false)
+    void deleteStudent() {
+        studentRepository.deleteById(1L);
+    }
 }
