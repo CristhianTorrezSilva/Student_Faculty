@@ -27,7 +27,7 @@ class FacultyRepositoryTest {
     @Test
     @Transactional
     @Rollback(false)
-    void createFaculty() {
+    void createFacultyWithCareerAndSubjects() {
         // create a new faculty
         Faculty engineering = new Faculty();
         engineering.setName("Engineering");
