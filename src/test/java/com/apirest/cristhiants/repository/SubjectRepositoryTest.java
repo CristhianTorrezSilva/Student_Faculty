@@ -43,4 +43,49 @@ public class SubjectRepositoryTest {
 
         careerRepository.save(career);
     }
+
+    @Test
+    @Transactional
+    @Rollback(false)
+    void updateSubject() {
+        Subject subject = subjectRepository.findById(10L).orElseThrow();
+        subject.setName("Applied Mathematics");
+        subjectRepository.save(subject);
+    }
+
+    @Test
+    @Transactional
+    @Rollback(false)
+    void getAllSubjectsFromCareer() {
+        Career career = careerRepository.findById(2L).orElseThrow();
+        System.out.println("Career: " + career.getName());
+        for (Subject subject : career.getSubjects()) {
+            System.out.println("\tSubject: " + subject.getName());
+        }
+    }
+
+    @Test
+    @Transactional
+    @Rollback(false)
+    void getAllSubjectsFromEachCareer() {
+        Iterable<Career> careers = careerRepository.findAll();
+        for (Career career : careers) {
+            System.out.println("Career: " + career.getName());
+            for (Subject subject : career.getSubjects()) {
+                System.out.println("\tSubject: " + subject.getName());
+            }
+        }
+    }
+
+    @Test
+    @Transactional
+    @Rollback(false)
+    void deleteSubjectFromCareer() {
+        Career career = careerRepository.findById(2L).orElseThrow();
+        Subject subject = subjectRepository.findById(9L).orElseThrow();
+        career.getSubjects().remove(subject);
+        subject.setCareer(null);
+        careerRepository.save(career);  
+        subjectRepository.delete(subject);
+    }
 }
