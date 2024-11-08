@@ -28,13 +28,13 @@ public class Student {
             inverseJoinColumns = @JoinColumn(name = "subject_id"))
     private Set<Subject> subjects = new HashSet<>();
 
-    public void addSubject(Subject subject) {
-        this.subjects.add(subject);
-        subject.getStudents().add(this);
-    }
-
-    public void removeSubject(Subject subject) {
-        this.subjects.remove(subject);
-        subject.getStudents().remove(this);
-    }
+//    public void addSubject(Subject subject) {
+//        this.subjects.add(subject);
+//        subject.getStudents().add(this);
+//    }
+//
+//    public void removeSubject(Subject subject) {
+//        this.subjects.remove(subject);
+//        subject.getStudents().remove(this);
+//    }
 }

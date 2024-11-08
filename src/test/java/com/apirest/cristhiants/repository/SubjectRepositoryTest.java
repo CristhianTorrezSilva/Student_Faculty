@@ -21,14 +21,14 @@ public class SubjectRepositoryTest {
     @Transactional
     @Rollback(false)
     void addSubjectToCareer() {
-        Career career = careerRepository.findById(2L).orElseThrow();
+        Career career = careerRepository.findById(1L).orElseThrow();
 
         Subject subject1 = new Subject();
-        subject1.setName("Subject 1");
+        subject1.setName("Data Base");
         subject1.setSemester(1);
 
         Subject subject2 = new Subject();
-        subject2.setName("Subject 2");
+        subject2.setName("HARDWARE");
         subject2.setSemester(10);
 
         if (career.getSubjects() == null) {

@@ -27,7 +27,7 @@ class StudentRepositoryTest {
     @Transactional
     @Rollback(false)
     void createStudentWithExistingSubject() {
-        Optional<Subject> subjectOptional = subjectRepository.findById(3L);
+        Optional<Subject> subjectOptional = subjectRepository.findById(1L);
         assertThat(subjectOptional).isPresent();
         Subject existingSubject = subjectOptional.get();
         
@@ -70,7 +70,22 @@ class StudentRepositoryTest {
         student.setName("Cris");
         studentRepository.save(student);
     }
-    
+
+    @Test
+    @Transactional
+    @Rollback(false)
+    void addExistingSubjectToExistingStudent() {
+        Optional<Subject> subjectOptional = subjectRepository.findById(3L);
+        assertThat(subjectOptional).isPresent();
+        Subject existingSubject = subjectOptional.get();
+
+        Student existingStudent = studentRepository.findById(1L).get();
+        existingStudent.getSubjects().add(existingSubject);
+        studentRepository.save(existingStudent);
+
+    }
+
+
     @Test
     @Transactional
     @Rollback(false)
